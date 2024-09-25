@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} MovieMeter {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{% url 'home' %}">MovieMeter</a>
+        </div>
+
+        <ul class="navbar-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">API</a></li>
+        </ul>
+
+        <div class="search-container"></div>
+            <input type="text" placeholder="Search Movies..." class="search-input">
+            <button type="submit" class="search-btn">Search</button>
+        </div>
+
+        <div class="navbar-user">
+            <a href="#" class="login-btn">Login</a>
+            <a href="#" class="signup-btn">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Page content goes here -->
+     {% block body %}
+
+     {% endblock %}
+
+    <script>
+        // Toggle the mobile menu
+        const toggleButton = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+
+        toggleButton.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+
+        // Close the dropdown on clicking outside
+        document.addEventListener('click', function(event) {
+            let dropdown = document.querySelector('.dropdown-content');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
