@@ -188,4 +188,71 @@
   }
 }
 
+/* Container styling for the movie detail section */
+.movie-detail-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+/* Styling the movie poster */
+.movie-poster img {
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Movie info section */
+.movie-info {
+  flex-grow: 1;
+  color: #333;
+}
+
+.movie-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2C3E50;
+}
+
+.movie-genre, .movie-release, .movie-rating, .movie-description {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.movie-genre, .movie-release, .movie-rating {
+  font-weight: bold;
+}
+
+.movie-description {
+  margin-top: 20px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Extra details like cast, director, etc. */
+.movie-extra-details {
+  margin-top: 40px;
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.movie-extra-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.movie-extra-details li {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
   

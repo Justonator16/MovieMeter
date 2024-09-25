@@ -1,5 +1,6 @@
 import requests
 import datetime as dt
+from pprint import pprint
 
 today = dt.date.today()
 def MovieInfoToJson(movie_title: str) -> dict:
@@ -16,3 +17,15 @@ def MovieInfoToJson(movie_title: str) -> dict:
     movie_info_json = search_results['Search']
     return movie_info_json
 
+def get_movie_detail(title : str):
+    api_key = '3f605626'
+    
+    # Get movie details
+    # Returns a dictionary of movie details eg plot, ratings,director, release date
+    url = f'http://www.omdbapi.com/?apikey={api_key}&t={title}'
+    result = requests.get(url)
+    
+    movie_detail = result.json()
+
+    # Returns a dictionary of all details in movie
+    return movie_detail
