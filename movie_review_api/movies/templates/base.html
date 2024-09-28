@@ -8,29 +8,40 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <a href="{% url 'home' %}">MovieMeter</a>
+
+    <table>
+        <tr>
+            <th><a href="{% url 'movies:home' %}">MovieMeter</a></th>
+        </tr>
+        <tr class="navbar">
+            <td><a href="{% url 'movies:home' %}">Home</a></td>
+            <td><a href="#">Reviews</a></td>
+            <td><a href="#">API</a></td>
+        </tr>
+    </table>
+
+        <div class="search-container">
+            <a href="{% url 'accounts:profile' request.user %}" class="signup-btn">Profile</a>
+            
         </div>
 
-        <ul class="navbar-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="#">API</a></li>
-        </ul>
-
-        <div class="search-container"></div>
-            <input type="text" placeholder="Search Movies..." class="search-input">
-            <button type="submit" class="search-btn">Search</button>
-        </div>
-
+        {% if not request.user.is_authenticated %}
         <div class="navbar-user">
-            <a href="#" class="login-btn">Login</a>
-            <a href="#" class="signup-btn">Sign Up</a>
+            <a href="{% url 'accounts:login' %}" class="login-btn">Login</a>
+            <a href="{% url 'accounts:register' %}" class="signup-btn">Sign Up</a>
         </div>
+        {% else %}
+        <div class="navbar-user">
+            <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="login-btn">Logout</button>
+            </form>
+        </div>
+        {% endif %}
     </nav>
 
     <!-- Page content goes here -->
+
      {% block body %}
 
      {% endblock %}

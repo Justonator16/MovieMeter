@@ -8,7 +8,7 @@
         <div class="movie-item" >
             <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
             <div class="movie-title">
-                <a href="{% url 'movie_detail' movie.Title %}">{{ movie.Title }}</a>
+                <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
             </div>
             <div class="movie_description">
                 <p>{{ movie.Plot }}</p>
@@ -27,7 +27,7 @@
 
     <p> <b>imdbVotes</b>: {{ movie.imdbVotes }}</p>
     <p>MovieMeter : 
-        <a href="{% url movie.Title 'user_movie_review'  %}"><strong>Rate Here</strong></a>
+        <a href="{% url 'movies:user_movie_review' movie.Title  %}"><strong>Rate Here</strong></a>
     </p>    
 
 <!-- Additional Movie Details (Actors, Directors, etc.) -->

@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'movies',
     'accounts',
 ]
+
+# Crispy tags
+CRISPY_TEMPLATE_PACK="bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +60,7 @@ ROOT_URLCONF = 'movie_review_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'movies/templates', BASE_DIR / 'accounts/templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,12 +76,11 @@ TEMPLATES = [
 STATIC_URL = BASE_DIR / 'static'
 STATICFILES_DIR =  [
     BASE_DIR / 'movies/static',
-    BASE_DIR / 'accounts/static',
 
 ]
 
-LOGIN_REDIRECT_URL = '/home'
-LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = 'movies/'
+LOGIN_URL = 'movies/<str:movie_title>/login/'
 LOGOUT_REDIRECT_URL	= '/accounts/login/'
 
 WSGI_APPLICATION = 'movie_review_api.wsgi.application'

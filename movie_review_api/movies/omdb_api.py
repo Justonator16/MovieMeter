@@ -14,7 +14,11 @@ def MovieInfoToJson(movie_title: str) -> dict:
     search_results = result.json()
 
     #Returns a dictionary of all movies that match url request
-    movie_info_json = search_results['Search']
+    try:
+        movie_info_json = search_results['Search']
+    except:
+        return None
+    
     return movie_info_json
 
 def get_movie_detail(title : str):

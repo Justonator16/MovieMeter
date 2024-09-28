@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
 {% block body %}
-<form action="" method="post">
-    <div class="search-container"></div>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="search-btn">Search</button>
-    </div>
+<form action="{% url 'movies:home' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="search-btn">Search</button>
 </form>
 
-<div class="movie-grid">
+<table>
     {% for movie in movies %}
-    <div class="movie-item">
-    <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
-    <div class="movie-title"><a href="{% url 'movie_detail' movie.Title %}">{{ movie.Title }} </a></div>
-    <div class="movie-description">{{ movie.plot }}</div>
-    </div>   
-    {% endfor %}       
-</div>    
+        {% if forloop.first or forloop.counter0|divisibleby:4 %}
+        <tr>
+        {% endif %}
+
+        <td>
+            <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+            <center>
+                <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
+            </center>
+            <p>{{ movie.Plot }}</p>
+        </td>
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
 {% endblock %}

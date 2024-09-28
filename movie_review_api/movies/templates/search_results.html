@@ -2,15 +2,23 @@
 {% block title %} Search Results {% endblock %}
 
 {% block body %}
-<h2>Search Results for <b>"{{ request.POST.movie_title }}"</b></h2>
-  <div class="movie-grid">
-    {% for movie in movies %}
-    <div class="movie-item">
-    <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
-    <div class="movie-title">
-      <a href="{% url 'movie_detail' movie.Title %}">{{ movie.Title }}</a>
-      </div>
-    </div>   
-    {% endfor %}       
-  </div>  
+
+<table>
+  <h2>Search Results for <b>"{{ request.POST.movie_title }}"</b></h2>
+  {% for movie in movies %}
+      {% if forloop.first or forloop.counter0|divisibleby:4 %}
+      <tr>
+      {% endif %}
+
+      <td>
+          <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+          <center>          
+            <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
+          </center>
+      </td>
+      {% if forloop.counter|divisibleby:4 or forloop.last %}
+      </tr>
+      {% endif %}
+  {% endfor %}
+</table>
 {% endblock %}
