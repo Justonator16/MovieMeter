@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'movies',
     'accounts',
+    'api',
 ]
 
 # Crispy tags
@@ -56,6 +57,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'movie_review_api.urls'
+
+#Prevents html rendering 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,  # Number of reviews per page
+}
 
 TEMPLATES = [
     {

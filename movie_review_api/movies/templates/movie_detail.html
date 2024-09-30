@@ -2,7 +2,12 @@
 {% block title %} Movie Detail {{ movie.Title }} {% endblock %}
 
 {% block body %}
+<h3><a href="{% url 'api:paginated_reviews' movie.Title %}">API</a></h3>
+
 <center>
+    {% for message in messages %}
+    <h3>{{ message }}</h3>
+    {% endfor %}
     <h2>Details about {{ movie.Title }}</h2>
     <div class="movie-grid">
         <div class="movie-item" >
@@ -26,9 +31,15 @@
     {% endfor %}
 
     <p> <b>imdbVotes</b>: {{ movie.imdbVotes }}</p>
-    <p>MovieMeter : 
-        <a href="{% url 'movies:user_movie_review' movie.Title  %}"><strong>Rate Here</strong></a>
-    </p>    
+    <table border="2">
+        <tr>
+            <th rowspan="2">MovieMeter :</th></th>
+            <th><a href="{% url 'movies:movie_review' movie.Title  %}"><strong>Rate Here</strong></a></th>
+        </tr>
+        <tr>
+            <td>View all <a href="{% url 'movies:all_reviews' movie.Title %}"> Reviews here</a></td>
+        </tr>
+    </table>  
 
 <!-- Additional Movie Details (Actors, Directors, etc.) -->
 <div class="movie-extra-details">

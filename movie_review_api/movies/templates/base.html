@@ -11,57 +11,38 @@
 
     <table>
         <tr>
-            <th><a href="{% url 'movies:home' %}">MovieMeter</a></th>
+            <th colspan="20"><a href="{% url 'movies:home' %}"><h1>MovieMeter</h1></a></th>
         </tr>
-        <tr class="navbar">
+        <tr>
             <td><a href="{% url 'movies:home' %}">Home</a></td>
-            <td><a href="#">Reviews</a></td>
-            <td><a href="#">API</a></td>
+            <td><a href="{% url 'movies:my_reviews' %}">My Reviews</a></td>
+            <td><a href="{% url 'movies:movie_recommendations' %}">Recommendations</a></td>
+            {% with numbers="trfguhysbghfhgjgjg" %}
+            {% for number in numbers %}
+            <td></td>
+            {% endfor %}
+            {% endwith %}
+
+            {% if not request.user.is_authenticated %}
+                <td><a href="{% url 'accounts:login' %}" >Login</a></td>
+                <td><a href="{% url 'accounts:register' %}" >Sign Up</a></td>
+            {% else %}
+                <form method="post" action="{% url 'accounts:logout' %}">
+                    {% csrf_token %}
+                    <td><button type="submit">Logout</button></td>
+                </form>
+            {% endif %}
+            <td><a href="{% url 'accounts:profile' request.user %}" >Profile</a></td>
         </tr>
     </table>
 
-        <div class="search-container">
-            <a href="{% url 'accounts:profile' request.user %}" class="signup-btn">Profile</a>
-            
-        </div>
 
-        {% if not request.user.is_authenticated %}
-        <div class="navbar-user">
-            <a href="{% url 'accounts:login' %}" class="login-btn">Login</a>
-            <a href="{% url 'accounts:register' %}" class="signup-btn">Sign Up</a>
-        </div>
-        {% else %}
-        <div class="navbar-user">
-            <form method="post" action="{% url 'accounts:logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="login-btn">Logout</button>
-            </form>
-        </div>
-        {% endif %}
-    </nav>
-
+        
     <!-- Page content goes here -->
 
      {% block body %}
 
      {% endblock %}
 
-    <script>
-        // Toggle the mobile menu
-        const toggleButton = document.querySelector('.navbar-toggle');
-        const navbarLinks = document.querySelector('.navbar-links');
-
-        toggleButton.addEventListener('click', () => {
-            navbarLinks.classList.toggle('active');
-        });
-
-        // Close the dropdown on clicking outside
-        document.addEventListener('click', function(event) {
-            let dropdown = document.querySelector('.dropdown-content');
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-    </script>
 </body>
 </html>

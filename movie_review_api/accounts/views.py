@@ -7,6 +7,7 @@ from .forms import RegisterForm, ProfileUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from movies.models import Review
 
 class UserLoginView(LoginView):
     redirect_authenticated_user = True
@@ -29,7 +30,11 @@ class RegisterView(CreateView):
 @login_required
 def profile(request, username):
     profile = User.objects.filter(username=username)
-    context = {'profile': profile}
+    reviews = Review.objects.filter(user_id=request.user.id)
+    context = {
+        'profile': profile,
+        'reviews': reviews,
+        }
     return render(request, 'registration/profile_detail.html', context)
 
 #Update profile

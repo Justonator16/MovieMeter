@@ -3,18 +3,35 @@
 {% block title %} {{ request.user }} Profile {% endblock %}
 
 {% block body %}
-<h2>Profile of {{ request.user }}</h2>
+<h2>Profile Details</h2>
     <table border="5">
         <tr>
             <th>Username </th>
             <th>Email </th>
+            <th>Update Profile</th>
+            <th>Delete Profile</th>
         </tr>
         <tr>
             <td>{{ request.user }}</td>
             <td>{{ request.user.email }}</td>
+            <td><a href="{% url 'accounts:profile_update' request.user %}">here</a></td>
+            <td><a href="{% url 'accounts:profile_delete' request.user %}">here</a></td>
         </tr>
     </table>
 
-    <h2>Update your profile <a href="{% url 'accounts:profile_update' request.user %}">here</a></h2>
-    <h2>Delete your profile <a href="{% url 'accounts:profile_delete' request.user %}">here</a></h2>
+    <!-- Shows all movies current user logged in reviewed and can edit or delete their own reviews -->
+     <h2>Your movie reviews </h2>
+     {% if not reviews %}
+    <p>You have made 0 reviews.</p>
+    {% else %}
+        {% for review in reviews %}
+        <ul>
+            <li>Movie Title: <a href="{% url 'movies:movie_detail' review.movie_title  %}">{{ review.movie_title }} </a></li>
+            <li>Comment : {{ review.review_content }}</li>
+            <li>Rating (MovieMeter): {{ review.rating }}</li>
+            <li>Reviewed At : {{ review.created_at }}</li>
+
+        </ul>
+        {% endfor %}
+     {% endif %}
 {% endblock %}

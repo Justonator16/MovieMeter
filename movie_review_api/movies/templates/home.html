@@ -6,6 +6,10 @@
     <button type="submit" class="search-btn">Search</button>
 </form>
 
+{% for message in messages %}
+<h4>{{ message }}</h4>
+{% endfor %}
+
 <table>
     {% for movie in movies %}
         {% if forloop.first or forloop.counter0|divisibleby:4 %}

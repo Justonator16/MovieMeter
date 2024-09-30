@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>Review a movie here</h1>
+<center>
+    <h1>Review a movie here</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Review</button>
+    </form>
+</center>
+
 {% endblock %}

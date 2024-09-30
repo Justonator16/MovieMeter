@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>Recommended Movies</h2>
+
+{% if top_rated_movies %}
+    <ul>
+        {% for movie in top_rated_movies %}
+            <li><a href="{% url 'movies:movie_detail' movie.movie_title %}">{{ movie.movie_title }}</a> - {{ movie.total_reviews }} top ratings</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No movie recommendations at the moment.</p>
+{% endif %}
+
+{% endblock %}

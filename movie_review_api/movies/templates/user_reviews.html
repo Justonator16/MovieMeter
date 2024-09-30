@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+    <h2>{{ message }}</h2>
+    {% endfor %}
+{% endif %}
+
+<ul>
+    {% for review in reviews %}
+    <li>Movie Title: <a href="{% url 'movies:movie_detail' review.movie_title  %}">{{ review.movie_title }}</a></li>
+    <li>Content: {{ review.review_content }}</li>
+    <li>Rating: {{ review.rating }}</li>
+    <li>Date Reviewed : {{ review.created_at }}</li>
+    <p><a href="{% url 'movies:update_review' review.movie_title %}">Update Review</a></p>
+    <p><a href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a></p>
+    {% endfor %}
+</ul>
+{% endblock %}
