@@ -3,9 +3,12 @@
 {% block body %}
 
 {% if messages %}
-    {% for message in messages %}
-    <h2>{{ message }}</h2>
-    {% endfor %}
+{% for message in messages %}
+    <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
 {% endif %}
 
 <ul>
@@ -14,8 +17,10 @@
     <li>Content: {{ review.review_content }}</li>
     <li>Rating: {{ review.rating }}</li>
     <li>Date Reviewed : {{ review.created_at }}</li>
-    <p><a href="{% url 'movies:update_review' review.movie_title %}">Update Review</a></p>
-    <p><a href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a></p>
+    <p>
+        <a class="btn btn-outline-success" href="{% url 'movies:update_review' review.movie_title %}">Update Review</a>
+        <a class="btn btn-outline-success" href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a>
+    </p>
     {% endfor %}
 </ul>
 {% endblock %}

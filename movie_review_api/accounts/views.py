@@ -21,13 +21,11 @@ class RegisterView(CreateView):
     
     def get_success_url(self) -> str:
         return reverse_lazy('accounts:login')
-    
 
 # Profile CRUD
 #Retrive profile of user who is logged in
 
-
-@login_required
+@login_required(login_url=reverse_lazy('accounts:login'))
 def profile(request, username):
     profile = User.objects.filter(username=username)
     reviews = Review.objects.filter(user_id=request.user.id)
@@ -38,7 +36,7 @@ def profile(request, username):
     return render(request, 'registration/profile_detail.html', context)
 
 #Update profile
-
+@login_required(login_url=reverse_lazy('accounts:login'))
 def profile_update(request, username):
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, instance=request.user)
@@ -46,12 +44,12 @@ def profile_update(request, username):
             form.save()
             messages.success(request, "Profile has been updated successfully")
             return redirect(reverse_lazy('accounts:login'))
-    else:
+    elif request.method == 'GET':
         form = ProfileUpdateForm(instance=request.user)
-
         return render(request, 'registration/profile_update.html', {'form': form})
 
 # Delete profile
+@login_required(login_url=reverse_lazy('accounts:login'))
 def profile_delete(request, username):
     if request.method == 'POST':
         user = User.objects.filter(username=request.user)

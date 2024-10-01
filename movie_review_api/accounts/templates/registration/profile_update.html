@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'auth.html' %}
 
 {% block title %}Update your Profile{% endblock %}
 
@@ -7,7 +7,7 @@
 	<form method="POST">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit" >Update</button>
+		<button class="btn btn-outline-success" type="submit" >Update</button>
 	</form>
 </center>
     

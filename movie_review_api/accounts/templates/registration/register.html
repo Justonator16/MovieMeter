@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'auth.html' %}
 
 {% block title %}Create an Account{% endblock %}
 
@@ -7,8 +7,8 @@
 	<form method="POST">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<button type="submit" >Register</button>
-		</form>
+		<button class="btn btn-outline-success" type="submit" >Register</button>
+	</form>
 </center>
     
 {% endblock %}

@@ -7,7 +7,7 @@ def MovieInfoToJson(movie_title: str) -> dict:
     # Might expire soon! Limited to 1000 requests
     api_key = '3f605626'
     
-    #Return json of all movies found with the parameter provided in the url
+    #Return json of all movies fou                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      nd with the parameter provided in the url
     url = f'http://www.omdbapi.com/?apikey={api_key}&s={movie_title}&plot=short'
     result = requests.get(url)
 
@@ -22,7 +22,7 @@ def MovieInfoToJson(movie_title: str) -> dict:
     return movie_info_json
 
 def get_movie_detail(title : str):
-    api_key = '3f605626'
+    api_key = '3f605626' 
     
     # Get movie details
     # Returns a dictionary of movie details eg plot, ratings,director, release date

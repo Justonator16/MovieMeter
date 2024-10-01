@@ -12,15 +12,14 @@ from django.db.models import Count
 
 def home(request):
     if request.method == 'POST':
-        movies = MovieInfoToJson(movie_title=request.POST['movie_title'])
+        movies = MovieInfoToJson(movie_title=request.POST.get('movie_title'))
         context = {'movies': movies}
 
         return render(request, 'search_results.html', context=context)
     else:
         # By default the page is suppose to show new movies of the current year in order of release
         movies = MovieInfoToJson("Avengers")
-        form = MovieForm()
-        context = {'form': form, 'movies': movies }
+        context = {'movies': movies }
         return render(request, 'home.html' , context=context)
 
 def movie_details(request, movie_title):
@@ -139,6 +138,7 @@ def movie_recommendations(request):
     context = {
         'top_rated_movies': top_rated_movies
     }
+
     
     return render(request, 'movie_recommendations.html', context)
     

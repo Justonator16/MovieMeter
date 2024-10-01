@@ -13,6 +13,7 @@
 {% else %}
 <ul>
 {% for review in reviews %}
+    <br>
     <h2>Reviewer: {{ review.user_id.username }} </h2>
     <li>Movie Title: {{ review.movie_title }}</li>
     <li>Content: {{ review.review_content }}</li>
@@ -21,8 +22,8 @@
     
     <!-- Only users who are authenticated can delete or update their own reviews -->
     {% if request.user == review.user_id %}
-    <li><a href="{% url 'movies:update_review' review.movie_title %}">Update Review</a></li>
-    <li><a href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a></li>
+        <a class="btn btn-outline-success" href="{% url 'movies:update_review' review.movie_title %}">Update Review</a>
+        <a class="btn btn-outline-success" href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a>
     {% endif %}
 
 {% endfor %}

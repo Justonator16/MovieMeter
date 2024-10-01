@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
+
 {% block body %}
-<form action="{% url 'movies:home' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="search-btn">Search</button>
-</form>
+    {% if message %}
+        <!-- Success Message -->
+        <div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+            {{ message }}
+        </div>
+    {% endif %}
 
-{% for message in messages %}
-<h4>{{ message }}</h4>
-{% endfor %}
+    <table>
+        {% for movie in movies %}
+            {% if forloop.first or forloop.counter0|divisibleby:4 %}
+            <tr>
+            {% endif %}
 
-<table>
-    {% for movie in movies %}
-        {% if forloop.first or forloop.counter0|divisibleby:4 %}
-        <tr>
-        {% endif %}
-
-        <td>
-            <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
-            <center>
-                <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
-            </center>
-            <p>{{ movie.Plot }}</p>
-        </td>
-        {% if forloop.counter|divisibleby:4 or forloop.last %}
-        </tr>
-        {% endif %}
-    {% endfor %}
-</table>
+            <td>
+                <img class="img-thumbnail" src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+                <center>
+                    <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
+                </center>
+                <p>{{ movie.Plot }}</p>
+            </td>
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
 {% endblock %}

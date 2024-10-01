@@ -5,17 +5,23 @@
 <h3><a href="{% url 'api:paginated_reviews' movie.Title %}">API</a></h3>
 
 <center>
+    {% if messages %}
     {% for message in messages %}
-    <h3>{{ message }}</h3>
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     {% endfor %}
+    {% endif %}
+
     <h2>Details about {{ movie.Title }}</h2>
     <div class="movie-grid">
         <div class="movie-item" >
-            <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+            <img class="img-thumbnail" src="{{ movie.Poster }}" alt="Movie Poster" />
             <div class="movie-title">
                 <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
             </div>
-            <div class="movie_description">
+            <div>
                 <p>{{ movie.Plot }}</p>
             </div>
         </div>   
@@ -34,10 +40,10 @@
     <table border="2">
         <tr>
             <th rowspan="2">MovieMeter :</th></th>
-            <th><a href="{% url 'movies:movie_review' movie.Title  %}"><strong>Rate Here</strong></a></th>
+            <th><a class="btn btn-outline-success" href="{% url 'movies:movie_review' movie.Title  %}"><strong>Rate Here</strong></a></th>
         </tr>
         <tr>
-            <td>View all <a href="{% url 'movies:all_reviews' movie.Title %}"> Reviews here</a></td>
+            <td>View all <a class="btn btn-outline-success" href="{% url 'movies:all_reviews' movie.Title %}"> Reviews here</a></td>
         </tr>
     </table>  
 

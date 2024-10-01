@@ -4,7 +4,7 @@
 <h3>Are you sure you want to delete your {{ movie_title }} Review?</h3>
 <form action="" method="post">
     {% csrf_token %}
-    <button type="submit">Delete Review</button>
-    <a href="{% url 'movies:my_reviews' %}">No</a>
+    <button class="btn btn-outline-success" type="submit">Delete Review</button>
+    <a class="btn btn-outline-success" href="{% url 'movies:my_reviews' %}">No</a>
 </form>
 {% endblock %}
