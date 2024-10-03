@@ -1,6 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block body %}
+    {% if not reviews %}
+    <p>No reviews found :(</p>
+    {% endif %}
 
 {% if messages %}
 {% for message in messages %}

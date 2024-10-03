@@ -1,23 +1,15 @@
-{% extends 'auth.html' %}
+{% extends 'layout/base.html' %}
 
 {% block title %} {{ request.user }} Profile {% endblock %}
 
 {% block body %}
 <h2>Profile Details</h2>
-    <table border="5">
-        <tr>
-            <th>Username </th>
-            <th>Email </th>
-            <th>Update Profile</th>
-            <th>Delete Profile</th>
-        </tr>
-        <tr>
-            <td>{{ request.user }}</td>
-            <td>{{ request.user.email }}</td>
-            <td><a class="btn btn-outline-success" href="{% url 'accounts:profile_update' request.user %}">here</a></td>
-            <td><a class="btn btn-outline-success" href="{% url 'accounts:profile_delete' request.user %}">here</a></td>
-        </tr>
-    </table>
+    <ul>
+        <li>Username: {{ request.user }}</li>
+        <li>Email: {{ request.user.email }}</li>
+        <a class="btn btn-outline-success" href="{% url 'accounts:profile_update' request.user %}">Update Profile </a>
+        <a class="btn btn-outline-success" href="{% url 'accounts:profile_delete' request.user %}">Delete Profile</a>
+    </ul>
 
     <!-- Shows all movies current user logged in reviewed and can edit or delete their own reviews -->
      <h2>Your movie reviews </h2>

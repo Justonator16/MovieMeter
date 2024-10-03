@@ -28,7 +28,7 @@ class RegisterView(CreateView):
 @login_required(login_url=reverse_lazy('accounts:login'))
 def profile(request, username):
     profile = User.objects.filter(username=username)
-    reviews = Review.objects.filter(user_id=request.user.id)
+    reviews = Review.objects.filter(reviewer=request.user.id)
     context = {
         'profile': profile,
         'reviews': reviews,

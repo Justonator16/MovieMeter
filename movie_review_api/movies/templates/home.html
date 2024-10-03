@@ -1,12 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block body %}
-    {% if message %}
-        <!-- Success Message -->
-        <div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+<center>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
             {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    {% endfor %}
     {% endif %}
+</center>
+    
 
     <table>
         {% for movie in movies %}
@@ -15,7 +20,7 @@
             {% endif %}
 
             <td>
-                <img class="img-thumbnail" src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+                <img class="object-fit-contain border rounded" src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
                 <center>
                     <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
                 </center>

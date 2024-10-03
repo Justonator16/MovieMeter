@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 {% block title %} Movie Detail {{ movie.Title }} {% endblock %}
 
 {% block body %}
-<h3><a href="{% url 'api:paginated_reviews' movie.Title %}">API</a></h3>
-
 <center>
+    <h1><a class="btn btn-primary" href="{% url 'api:paginated_reviews' movie.Title %}"><b>Access API</b></a></h1>
+
     {% if messages %}
     {% for message in messages %}
         <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
@@ -17,12 +17,12 @@
     <h2>Details about {{ movie.Title }}</h2>
     <div class="movie-grid">
         <div class="movie-item" >
-            <img class="img-thumbnail" src="{{ movie.Poster }}" alt="Movie Poster" />
+            <img class="object-fit-contain border rounded" src="{{ movie.Poster }}" alt="Movie Poster" />
             <div class="movie-title">
                 <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
             </div>
             <div>
-                <p>{{ movie.Plot }}</p>
+                <p class="lead">{{ movie.Plot }}</p>
             </div>
         </div>   
     </div>  
@@ -37,15 +37,17 @@
     {% endfor %}
 
     <p> <b>imdbVotes</b>: {{ movie.imdbVotes }}</p>
-    <table border="2">
+    <table border="1">
         <tr>
             <th rowspan="2">MovieMeter :</th></th>
-            <th><a class="btn btn-outline-success" href="{% url 'movies:movie_review' movie.Title  %}"><strong>Rate Here</strong></a></th>
+            <th><a class="btn btn-outline-success" href="{% url 'movies:movie_review' movie.Title  %}"><strong>Rate</strong></a></th>
         </tr>
         <tr>
-            <td>View all <a class="btn btn-outline-success" href="{% url 'movies:all_reviews' movie.Title %}"> Reviews here</a></td>
+            <td><a class="btn btn-outline-success" href="{% url 'movies:all_reviews' movie.Title %}">  <b>Reviews</b> </a></td>
         </tr>
     </table>  
+    <!-- Average rating of all reviews on movie -->
+    <p> <b>MovieMeter Rating:</b>  {{ average_rating }}</p>
 
 <!-- Additional Movie Details (Actors, Directors, etc.) -->
 <div class="movie-extra-details">

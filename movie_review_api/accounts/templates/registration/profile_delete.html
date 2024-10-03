@@ -1,4 +1,4 @@
-{% extends 'auth.html' %}
+{% extends 'layout/base.html' %}
 
 {% block title %}Delete your Profile{% endblock %}
 
@@ -8,9 +8,13 @@
 	<h2>Are you sure you want to delete your profile ?</h2>
 	<form method="POST">
 		{% csrf_token %}
-	<button class="btn btn-outline-success" type="submit">Yes</button>
-    <p><a class="btn btn-outline-success" href="{% url 'accounts:profile' request.user %}">No</a></p>
+	<p>
+		<button class="btn btn-outline-success" type="submit">Yes</button>
+    	<a class="btn btn-outline-success" href="{% url 'accounts:profile' request.user %}">No</a>
+	</p>
+	
 	</form>
 </center>
+<br><br><br><br>
     
 {% endblock %}

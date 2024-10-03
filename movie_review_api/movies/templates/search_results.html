@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 {% block title %} Search Results {% endblock %}
 
 {% block body %}
-
 <table>
   <h2>Search Results for <b>"{{ request.POST.movie_title }}"</b></h2>
+
   {% for movie in movies %}
       {% if forloop.first or forloop.counter0|divisibleby:4 %}
       <tr>
@@ -13,7 +13,10 @@
       <td>
           <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
           <center>          
-            <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
+            <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }} ({{ movie.Year }})</a>
+          </center>
+          <center>
+            <p>Type: {{ movie.Type }}</p>
           </center>
       </td>
       {% if forloop.counter|divisibleby:4 or forloop.last %}

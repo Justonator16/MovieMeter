@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
@@ -7,6 +8,9 @@ from movies.models import Review
 from .serializer import ReviewSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
+
+def api_doc(request):
+    return render(request, 'api_doc.html')
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])  # Make sure only authenticated users can modify or delete reviews

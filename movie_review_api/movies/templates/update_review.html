@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block body %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-outline-success" type="submit">Update Review</button>
-</form>
+<center>
+    <form action="{% url 'movies:update_review' movie_title %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-success" type="submit">Update Review</button>
+    </form>
+</center>
 {% endblock %}

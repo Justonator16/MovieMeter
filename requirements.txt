@@ -1,4 +1,4 @@
 django
 djangorestframework
 requests
-django-crispy-forms
+psycopg2-binary

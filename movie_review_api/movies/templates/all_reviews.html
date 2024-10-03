@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block body %}
 <h2>All reviews on {{ movie_title}}</h2>
 
-<p>Sort by: 
-    <a href="?sort=created_at">Newest</a> |
-    <a href="?sort=rating">Rating</a> |
-    <a href="?sort=user_id">Reviewer</a>
+<p> <h3>Sort by:</h3> 
+    <a class="btn btn-outline-success" href="?sort=created_at">Newest</a> |
+    <a class="btn btn-outline-success" href="?sort=rating">Rating</a> |
+    <a class="btn btn-outline-success" href="?sort=reviewer">Reviewer</a>
 </p>
 {% if not reviews %}
     <p>No reviews found :(</p>
@@ -14,14 +14,14 @@
 <ul>
 {% for review in reviews %}
     <br>
-    <h2>Reviewer: {{ review.user_id.username }} </h2>
+    <h2>Reviewer: {{ review.reviewer.username }} </h2>
     <li>Movie Title: {{ review.movie_title }}</li>
     <li>Content: {{ review.review_content }}</li>
     <li>Rating: {{ review.rating }}</li>
     <li>Date Reviewed : {{ review.created_at }}</li>
     
     <!-- Only users who are authenticated can delete or update their own reviews -->
-    {% if request.user == review.user_id %}
+    {% if request.user == review.reviewer %}
         <a class="btn btn-outline-success" href="{% url 'movies:update_review' review.movie_title %}">Update Review</a>
         <a class="btn btn-outline-success" href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a>
     {% endif %}
@@ -36,7 +36,11 @@
             <a href="?page={{ reviews.previous_page_number }}&sort={{ sort_by }}">Previous</a>
         {% endif %}
 
+        {% if not reviews.number %}
+        <p></p>
+        {% else %}
         <span>Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}</span>
+        {% endif %}
 
         {% if reviews.has_next %}
             <a href="?page={{ reviews.next_page_number }}&sort={{ sort_by }}">Next</a>

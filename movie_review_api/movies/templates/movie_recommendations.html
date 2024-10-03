@@ -1,16 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 
 {% block body %}
-<h2>Recommended Movies</h2>
+    <h2>Popular Movies of all time</h2>
 
-{% if top_rated_movies %}
-    <ul>
-        {% for movie in top_rated_movies %}
-            <li><a class="btn btn-outline-success" href="{% url 'movies:movie_detail' movie.movie_title %}">{{ movie.movie_title }}</a> - {{ movie.total_reviews }} top ratings</li>
+    <table>
+        {% for movie in movies %}
+            {% if forloop.first or forloop.counter0|divisibleby:4 %}
+            <tr>
+            {% endif %}
+
+            <td>
+                <img class="object-fit-contain border rounded" src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
+                <center>
+                    <a href="#">{{ movie.Title }}</a>
+                </center>
+            </td>
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+            </tr>
+            {% endif %}
         {% endfor %}
-    </ul>
-{% else %}
-    <p>No movie recommendations at the moment.</p>
-{% endif %}
-
+    </table>
 {% endblock %}

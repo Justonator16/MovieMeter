@@ -1,0 +1,34 @@
+{% extends 'layout/base.html' %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2>How to Use the Movie Review API</h2>
+    <p>Follow these steps to interact with the Movie Review API:</p>
+    
+    <ol>
+        <li>
+            <b>Search for a Movie:</b>
+            <p>Use the search bar above to find the movie you're interested in. Enter the movie title and click the "Search" button.</p>
+        </li>
+        <li>
+            <b>Select the Movie:</b>
+            <p>From the search results, click on the movie you want to explore. This will open the movie's detail page where you can view its information, ratings, and reviews.</p>
+        </li>
+        <li>
+            <b>Access the API for that Movie:</b>
+            <p>Once you're on the movie's detail page, click on the "API" button to access the API endpoint for that specific movie. For example, you may see something like:</p>
+            <code>/api/movies/Inception/reviews/</code>
+        </li>
+        <li>
+            <b>Use the API:</b>
+            <p>Developers can use the provided API endpoint to retrieve or submit reviews, ratings, or other movie data. No API key required.</p>
+        </li>
+    </ol>
+
+    <p class="mt-4"><b>Example:</b></p>
+    <p>Search for "Inception," click on the movie, then use the API endpoint:</p>
+    <code>/api/movies/Inception/reviews/</code>
+</div>
+<br>
+
+{% endblock %}
