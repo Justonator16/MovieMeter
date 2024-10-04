@@ -8,49 +8,59 @@ from .models import Review
 from django.contrib import messages
 from django.core.paginator import Paginator   
 import random
+from urllib.parse import unquote, quote
 
 def landing_page(request):
-    message.success(request, f"Welcome {request.user}")
+    messages.success(request, f"Welcome {request.user}")
     return render(request, 'landing_page.html')
 
 def home(request):
     if request.method == 'POST':
+        movie_title = request.POST.get('movie_title')
+        # Encode the movie title to ensure safe URL usage
+        encoded_movie_title = quote(movie_title)
+
+        # Pass the encoded movie title to the API function
+        movies = MovieInfoToJson(encoded_movie_title)
+        
         try:
-            movies = MovieInfoToJson(movie_title=request.POST.get('movie_title'))
+            # E.g., IMDb Ratings, Director, plot, runtime, etc.
+            movies_full_details = [get_movie_detail(movie['Title']) for movie in movies]
         except:
+            messages.error(request, "Invalid movie title :(")
             return redirect(reverse_lazy('movies:home'))
         
-        #Eg Imdb Ratings, Director, plot, runtime etc
-        movies_full_details = [ get_movie_detail(movie['Title']) for movie in movies ]
-        
-        filter_by = request.POST.get('filter') 
-        if filter_by != None:
-            filtered_movies = filter_search_results(movies_full_details , filter_by)
+        # Apply filtering if any
+        filter_by = request.POST.get('filter')
+        if filter_by is not None:
+            filtered_movies = filter_search_results(movies_full_details, filter_by)
             context = {'movies': filtered_movies}
             return render(request, 'search_results.html', context=context)
 
-        #Unfiltered movies from api
+        # Unfiltered movies from the API
         context = {'movies': movies_full_details}
-                        
         return render(request, 'search_results.html', context=context)
+
     else:
-        # Popular 30 movies
+        # Popular 50 movies
         movies = get_popular_movies(50)
         
         try:
-            popular_movies_full_details = [ get_movie_detail(movie['title']) for movie in movies ]
+            popular_movies_full_details = [get_movie_detail(movie['title']) for movie in movies]
         except:
-            popular_movies_full_details = [ get_movie_detail(movie['Title']) for movie in movies ]
+            popular_movies_full_details = [get_movie_detail(movie['Title']) for movie in movies]
         
-        # Paginate results (e.g., 30 reviews per page)
-        paginator = Paginator(popular_movies_full_details, 25)  # Show 30 reviews per page
-        page_number = random.randint(1,2)
+        # Paginate results (e.g., 25 reviews per page)
+        paginator = Paginator(popular_movies_full_details, 25)
+        page_number = random.randint(1, 2)
         page_objs = paginator.get_page(page_number)
 
-        context = {'movies': page_objs }
-        return render(request, 'home.html' , context=context)
+        context = {'movies': page_objs}
+        return render(request, 'home.html', context=context)
+
 
 def movie_details(request, movie_title):
+    movie_title = unquote(movie_title)
     movie_json = get_movie_detail(movie_title)
     #All reviews with title from request
     movies = Review.objects.filter(movie_title=movie_title)

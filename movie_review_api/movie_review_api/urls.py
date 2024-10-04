@@ -19,7 +19,7 @@ from django.urls import path, include
 from movies import views 
 
 urlpatterns = [
-    path("", views.landing_page),
+    path("", views.landing_page, name="landing_page"),
     path("movies/", include('movies.urls')),
     path("accounts/", include('accounts.urls')),
     path("api/", include('api.urls')),
