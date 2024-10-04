@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from .omdb_api import MovieInfoToJson, get_movie_detail, filter_search_results, get_popular_movies
@@ -9,9 +9,16 @@ from django.contrib import messages
 from django.core.paginator import Paginator   
 import random
 
+def landing_page(request):
+    message.success(request, f"Welcome {request.user}")
+    return render(request, 'landing_page.html')
+
 def home(request):
     if request.method == 'POST':
-        movies = MovieInfoToJson(movie_title=request.POST.get('movie_title'))
+        try:
+            movies = MovieInfoToJson(movie_title=request.POST.get('movie_title'))
+        except:
+            return redirect(reverse_lazy('movies:home'))
         
         #Eg Imdb Ratings, Director, plot, runtime etc
         movies_full_details = [ get_movie_detail(movie['Title']) for movie in movies ]
