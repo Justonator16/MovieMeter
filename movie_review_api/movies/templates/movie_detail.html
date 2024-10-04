@@ -18,9 +18,6 @@
     <div class="movie-grid">
         <div class="movie-item" >
             <img class="object-fit-contain border rounded" src="{{ movie.Poster }}" alt="Movie Poster" />
-            <div class="movie-title">
-                <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }}</a>
-            </div>
             <div>
                 <p class="lead">{{ movie.Plot }}</p>
             </div>
