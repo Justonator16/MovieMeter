@@ -2,26 +2,24 @@
 {% block title %} Search Results {% endblock %}
 
 {% block body %}
-<table>
-  <h2>Search Results for <b>"{{ request.POST.movie_title }}"</b></h2>
+<h2>Search Results for <b>"{{ request.POST.movie_title }}"</b></h2>
 
-  {% for movie in movies %}
-      {% if forloop.first or forloop.counter0|divisibleby:4 %}
-      <tr>
-      {% endif %}
-
-      <td>
-          <img src="{{ movie.Poster }}" alt="Movie Poster" class="movie-poster" />
-          <center>          
-            <a href="{% url 'movies:movie_detail' movie.Title %}">{{ movie.Title }} ({{ movie.Year }})</a>
-          </center>
-          <center>
-            <p>Type: {{ movie.Type }}</p>
-          </center>
-      </td>
-      {% if forloop.counter|divisibleby:4 or forloop.last %}
-      </tr>
-      {% endif %}
-  {% endfor %}
-</table>
+<!-- Main Container for Movies -->
+<div class="container my-5">  <!-- Use container for proper padding and margin -->
+  <div class="row">
+      {% for movie in movies %}
+      <div class="col-md-3 col-sm-6 mb-4">  <!-- 4 columns per row on medium screens, 2 per row on small screens -->
+          <div class="card h-100">
+              <img src="{{ movie.Poster }}" class="card-img-top" alt="{{ movie.title }}">
+              <div class="card-body">
+                  <h5 class="card-title">{{ movie.Title }} {{ movie.Year }}</h5>
+                  <p class="card-text">{{ movie.Plot }}</p>
+                  <a href="{% url 'movies:movie_detail' movie.title %}" class="btn btn-primary">View Details</a>
+                  <p>{{ movie.Type }}</p> <!-- Movie or series -->
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
 {% endblock %}
