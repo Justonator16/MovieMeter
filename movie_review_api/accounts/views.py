@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from movies.models import Review
+from django.contrib.auth.models import User
 
 class UserLoginView(LoginView):
     redirect_authenticated_user = True
     
     def get_success_url(self) -> str:
-        return reverse_lazy('movies:home')
+        return reverse_lazy('movies:home', )
 
 class RegisterView(CreateView):
     form_class = RegisterForm
@@ -44,6 +45,9 @@ def profile_update(request, username):
             form.save()
             messages.success(request, "Profile has been updated successfully")
             return redirect(reverse_lazy('accounts:login'))
+        else:
+            return render(request, 'registration/profile_update.html', {'form': form})
+        
     elif request.method == 'GET':
         form = ProfileUpdateForm(instance=request.user)
         return render(request, 'registration/profile_update.html', {'form': form})

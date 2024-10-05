@@ -12,7 +12,7 @@ from urllib.parse import unquote, quote
 
 def landing_page(request):
     messages.success(request, f"Welcome {request.user}")
-    return render(request, 'landing_page.html')
+    return redirect(reverse_lazy('movies:home'))
 
 def home(request):
     if request.method == 'POST':

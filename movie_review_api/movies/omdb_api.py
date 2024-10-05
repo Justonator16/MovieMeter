@@ -18,7 +18,6 @@ def MovieInfoToJson(movie_title: str):
     
     result = requests.get(url)
     search_results = result.json()
-    
 
     #Returns a dictionary of all movies that match url request
     try:

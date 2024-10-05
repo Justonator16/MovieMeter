@@ -55,7 +55,7 @@
                 </ul>
                 <form class="d-flex align-items-center" role="search" method="post" action="{% url 'movies:home' %}">
                   {% csrf_token %}
-                  <input class="form-control me-2" type="search" placeholder="Movie/Series Title" aria-label="Search" name="movie_title" value="{{ request.POST.movie_title }}">
+                  <input class="form-control me-2" type="search" placeholder="Movie/Series Title" aria-label="Search" name="movie_title" value="{{ request.POST.movie_title }}" required>
                   <div class="me-2">
                       <select class="form-select" name="filter">
                           <option value="" disabled selected>Filter By</option>
