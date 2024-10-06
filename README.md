@@ -37,14 +37,14 @@ MovieMeter is a Django-based web application that allows users to search for mov
 
 1. Clone the Repository:
     ```bash
-    git clone https://github.com/Justonator16/moviemeter.git
-    cd moviemeter
+    git clone https://github.com/Justonator16/MovieMeter.git
+    cd MovieMeter
     ```
 
 2. Create and Activate a Virtual Environment:
     ```bash
     python -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scriptsctivate
+    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     ```
 
 3. Install Dependencies:
