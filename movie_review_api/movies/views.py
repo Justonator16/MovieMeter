@@ -83,10 +83,9 @@ def search_reviews(request):
         movie_title = request.POST.get('movie_title')
         rating = request.POST.get('rating')
         
-        print(movie_title)
         #Both title and rating were provided
         if movie_title and rating:
-            reviews = Review.objects.filter(movie_title__startswith=movie_title, rating=rating)
+            reviews = Review.objects.filter(movie_title__istartswith=movie_title, rating=rating)
             
             context = {'reviews': reviews}
             return render(request, 'search_reviews.html', context)
@@ -94,7 +93,7 @@ def search_reviews(request):
         #Only title is provided
         elif movie_title != "" and not rating :
             # Filter movies where the title starts with the user's input
-            reviews = Review.objects.filter(movie_title__startswith=movie_title)
+            reviews = Review.objects.filter(movie_title__istartswith=movie_title)
             context = {'reviews': reviews}
             return render(request, 'search_reviews.html', context)
         
