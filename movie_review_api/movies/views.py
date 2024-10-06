@@ -77,6 +77,43 @@ def movie_details(request, movie_title):
     context = {'movie': movie_json, 'average_rating': average_rating }
     return render(request, 'movie_detail.html', context)
 
+
+def search_reviews(request):
+    if request.method == 'POST':
+        movie_title = request.POST.get('movie_title')
+        rating = request.POST.get('rating')
+        
+        print(movie_title)
+        #Both title and rating were provided
+        if movie_title and rating:
+            reviews = Review.objects.filter(movie_title__startswith=movie_title, rating=rating)
+            
+            context = {'reviews': reviews}
+            return render(request, 'search_reviews.html', context)
+            
+        #Only title is provided
+        elif movie_title != "" and not rating :
+            # Filter movies where the title starts with the user's input
+            reviews = Review.objects.filter(movie_title__startswith=movie_title)
+            context = {'reviews': reviews}
+            return render(request, 'search_reviews.html', context)
+        
+        #Only rating is provided            
+        elif not movie_title and rating:
+            # Filter movies where the title starts with the user's input
+            reviews = Review.objects.filter(rating=rating)
+            context = {'reviews': reviews}
+            return render(request, 'search_reviews.html', context)
+        #Else review not found retrun error
+        else:
+            messages.error(request, "No reviews found starting with that movie title.")
+            return render(request, 'search_reviews.html')        
+        
+    elif request.method == 'GET':
+        reviews = Review.objects.all()
+        context = {'reviews': reviews}
+        return render(request, 'search_reviews.html', context)
+
 #Only authenticated users should be able to submit a review
 @login_required(login_url=reverse_lazy('accounts:login'))
 def movie_review(request, movie_title):

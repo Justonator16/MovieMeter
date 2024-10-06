@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+
+{% block body %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+{% endif %}
+
+<div class="container text-center my-5">
+  <h1 class="display-4 font-weight-bold text-primary">
+      Find Movie Reviews by Title or Rating
+  </h1>
+  <p class="lead text-secondary">
+      Discover detailed reviews and ratings of your favorite movies. Simply search by title or rating to explore!
+  </p>
+</div>
+
+<p>Note: you can only edit/delete your own reviews </p>
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <form class="d-flex align-items-center" role="search" action="{% url 'movies:search_reviews' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search Title" name="movie_title" aria-label="Search" value="{{ request.POST.movie_title }}">
+        <select class="form-select" name="rating">
+            <option value="" disabled selected> Rating </option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+        </select>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+
+{% if not reviews %}
+<p>No reviews found </p>
+{% endif %}
+
+<ul>
+    {% for review in reviews %}
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'movies:movie_detail' review.movie_title  %}">{{ review.movie_title }} </a></h5>
+      <p class="card-text">
+          <strong>Content:</strong> {{ review.review_content }}<br>
+          <strong>Rating:</strong> {{ review.rating }} / 5<br>
+          <strong>Author:</strong> {{ review.reviewer }}<br>
+          <strong>Date Reviewed:</strong> {{ review.created_at|date:"F d, Y" }}<br>
+      </p>
+  </div>
+
+    {% if request.user == review.reviewer %}
+    <p>
+        <a class="btn btn-outline-success" href="{% url 'movies:update_review' review.movie_title %}">Update Review</a>
+        <a class="btn btn-outline-success" href="{% url 'movies:delete_review' review.movie_title %}">Delete Review</a>
+    </p>
+    {% endif %}
+
+    <br>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

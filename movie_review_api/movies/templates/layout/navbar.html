@@ -23,7 +23,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'movies:my_reviews' %}">My Reviews</a>
                     </li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'movies:search_reviews' %}">Reviews</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'api:api_docs' %}">API</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -55,7 +58,7 @@
                 </ul>
                 <form class="d-flex align-items-center" role="search" method="post" action="{% url 'movies:home' %}">
                   {% csrf_token %}
-                  <input class="form-control me-2" type="search" placeholder="Movie/Series Title" aria-label="Search" name="movie_title" value="{{ request.POST.movie_title }}" required>
+                  <input class="form-control me-2" type="search" placeholder="Movie/Series Title" aria-label="Search" name="movie_title" required>
                   <div class="me-2">
                       <select class="form-select" name="filter">
                           <option value="" disabled selected>Filter By</option>
