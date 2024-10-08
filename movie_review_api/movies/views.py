@@ -80,7 +80,7 @@ def movie_details(request, movie_title):
 
 def search_reviews(request):
     if request.method == 'POST':
-        movie_title = request.POST.get('movie_title')
+        movie_title = request.POST.get('title')
         rating = request.POST.get('rating')
         
         #Both title and rating were provided

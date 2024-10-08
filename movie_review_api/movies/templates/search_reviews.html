@@ -24,7 +24,7 @@
     <div class="container-fluid">
       <form class="d-flex align-items-center" role="search" action="{% url 'movies:search_reviews' %}" method="post">
         {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Search Title" name="movie_title" aria-label="Search" value="{{ request.POST.movie_title }}">
+        <input class="form-control me-2" type="search" placeholder="Search Title" name="title" aria-label="Search" value="{{ request.POST.title }}">
         <select class="form-select" name="rating">
             <option value="" disabled selected> Rating </option>
             <option value=1>1</option>
